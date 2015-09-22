@@ -108,4 +108,24 @@ public class UsuarioDAO implements Serializable {
             logger.error("Classe UsuarioDAO, Erro ao tentar remover\n" + ex.getLocalizedMessage());
         }
     }
+
+    public List<Usuario> listarUsuarios() {
+        List<Usuario> lista = null;
+        try {
+            criarSessao();
+
+            QUsuario qUsuario = QUsuario.usuario;
+            JPQLQuery query = new HibernateQuery(session);
+            lista = query.from(qUsuario).list(new QUsuario(qUsuario));
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return lista;
+    }
+
 }

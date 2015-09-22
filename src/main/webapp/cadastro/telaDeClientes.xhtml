@@ -1,0 +1,105 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/principal/principal.xhtml">
+    <ui:define name="source">
+        <h:head>
+            <title>Clientes</title>
+        </h:head>
+        <h:body>
+            <h:form id="form" onkeypress="if (event.keyCode === 13) {return false;}">
+                <p:growl id="growl" showDetail="false" sticky="false" life="3000" /> 
+                <p:layout>                    
+                    <p:layoutUnit position="north" style="min-height:200px;">
+
+                        <h4>Cadastro de Clientes</h4> 
+                        <h:panelGrid columns="2">
+
+                            <h:outputLabel value="Nome" for="nome" />
+                            <h:inputText id="nome" value="#{clienteBean.clientes.nome}"/>
+
+                            <h:outputLabel value="Endereço" for="endereco" />
+                            <h:inputText id="endereco" value="#{clienteBean.clientes.endereco}"/>
+
+                            <h:outputLabel value="Telefone Residencial" for="telefone_res" />
+                            <h:inputText id="telefone_res" value="#{clienteBean.clientes.telefoneRes}"/>
+
+                            <h:outputLabel value="Telefone Celular 1" for="telefone_cel" />
+                            <h:inputText id="telefone_cel" value="#{clienteBean.clientes.telefoneCel}"/>
+
+                            <h:outputLabel value="Telefone Celular 2" for="telefone_cel2" />
+                            <h:inputText id="telefone_cel2" value="#{clienteBean.clientes.telefoneCel2}"/>
+
+                            <h:outputLabel value="Email" for="email" />
+                            <h:inputText id="email" value="#{clienteBean.clientes.email}"/>
+
+                            <h:inputHidden />
+                            <h:commandButton value="Salvar" action="#{clienteBean.saveClientes()}"/>
+
+                        </h:panelGrid>
+                    </p:layoutUnit>
+
+                    <p:layoutUnit position="center" style="min-height:200px;">
+                        <h4>Listagem</h4> 
+                        <p:dataTable value="#{clienteBean.listarClientes()}" style="font-size: 70%; text-align: center" var="lista" styleClass="lista_cliente" >
+                            <p:column>
+                                <f:facet name="header">
+                                    Nome
+                                </f:facet>
+                                <p:outputLabel value="#{lista.nome}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    Endereço
+                                </f:facet>
+                                <p:outputLabel value="#{lista.endereco}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    Telefone Res
+                                </f:facet>
+                                <p:outputLabel value="#{lista.telefoneRes}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    Telefone Cel 1
+                                </f:facet>
+                                <p:outputLabel value="#{lista.telefoneCel}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    Telefone Cel 2
+                                </f:facet>
+                                <p:outputLabel value="#{lista.telefoneCel2}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    Email
+                                </f:facet>
+                                <p:outputLabel value="#{lista.email}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header" rendered="center">
+                                    Ações
+                                </f:facet>
+
+                                <h:commandButton value="Deletar" action="#{clienteBean.removeClientes(lista)}" style="font-size: 90%"/> |
+                                <h:inputHidden/>
+                                <h:commandButton value="Editar" action="#{clienteBean.carregarClientes(lista)}" style="font-size: 90%"/>
+
+                            </p:column>
+                        </p:dataTable>                        
+                    </p:layoutUnit>
+                </p:layout>
+            </h:form>
+        </h:body>
+    </ui:define>
+</ui:composition>

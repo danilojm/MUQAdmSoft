@@ -1,0 +1,88 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/principal/principal.xhtml">
+    <ui:define name="source">
+        <h:head>
+            <title>Tipos de Produto</title>
+        </h:head>
+        <h:body>
+            <h:form onkeypress="if (event.keyCode === 13) {
+                        return false;
+                    }">
+                <p:growl id="growl" showDetail="false" sticky="false" life="3000" /> 
+                <p:layout>
+                    <p:layoutUnit position="north" style="min-height:200px;">
+
+                        <h4>Cadastro Tipos de Produtos</h4> 
+                        <h:panelGrid columns="2">
+
+                            <h:outputLabel value="Tipo de Produto" for="tipoProduto" />
+                            <h:inputText id="tipoProduto" value="#{tipoProdutoBean.tipoProduto.tipo}"/>                          
+
+                            <h:outputLabel value="Cor do Produto" for="corProduto" />
+                            <h:inputText id="corProduto" value="#{tipoProdutoBean.tipoProduto.cor}"/>
+
+                            <h:outputLabel value="Tamanho do Produto" for="tamanhoProduto" />
+                            <h:inputText id="tamanhoProduto" value="#{tipoProdutoBean.tipoProduto.tamanho}"/>
+
+                            <h:outputLabel value="Decrição do Produto" for="descricaoProduto" />
+                            <h:inputText id="descricaoProduto" value="#{tipoProdutoBean.tipoProduto.descricao}"/>                            
+
+                            <h:inputHidden />
+                            <h:commandButton value="Salvar" action="#{tipoProdutoBean.saveTipoProdutos()}"/>
+
+                        </h:panelGrid>
+                    </p:layoutUnit>
+
+                    <p:layoutUnit position="center" style="min-height:200px;">
+                        <h4>Lista Tipo Produto</h4> 
+                        <center>
+                            <p:dataTable value="#{tipoProdutoBean.listarTipoProdutos()}" style="font-size: 70%; text-align: center" var="lista" styleClass="lista_cliente">
+                                <p:column style="alignment-adjust: central">
+                                    <f:facet name="header">
+                                        Tipo
+                                    </f:facet>
+                                    <p:outputLabel value="#{lista.tipo}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        Cor
+                                    </f:facet>
+                                    <p:outputLabel value="#{lista.cor}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        Tamanho
+                                    </f:facet>
+                                    <p:outputLabel value="#{lista.tamanho}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        Descrição
+                                    </f:facet>
+                                    <p:outputLabel value="#{lista.descricao}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <f:facet name="header" rendered="center">
+                                        Ações
+                                    </f:facet>
+                                    <h:commandButton value="Deletar" action="#{tipoProdutoBean.removeTipoProduto(lista)}" /> |
+                                    <h:commandButton value="Editar" action="#{tipoProdutoBean.carregarTipoProdutos(lista)}" />
+                                </p:column>
+
+                            </p:dataTable>
+                        </center>
+                    </p:layoutUnit>
+                </p:layout>
+            </h:form>
+        </h:body>
+    </ui:define>
+</ui:composition>
+

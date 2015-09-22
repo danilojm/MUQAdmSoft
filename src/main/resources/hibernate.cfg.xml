@@ -12,5 +12,10 @@
         <property name="show_sql">true</property>
     
         <mapping class="com.dmosoft.muqadm.model.Usuario"/>
+        <mapping class="com.dmosoft.muqadm.model.Cliente"/>
+        <mapping class="com.dmosoft.muqadm.model.Produto"/>
+        <mapping class="com.dmosoft.muqadm.model.TipoProduto"/>
+        <mapping class="com.dmosoft.muqadm.model.FabricanteProduto"/>
     </session-factory>
 </hibernate-configuration>
+

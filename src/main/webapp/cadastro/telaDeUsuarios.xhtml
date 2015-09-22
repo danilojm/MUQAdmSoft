@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/principal/principal.xhtml">
+    <ui:define name="source">
+        <h:head>
+            <title>Clientes</title>
+        </h:head>
+        <h:body>
+            <h:form onkeypress="if (event.keyCode === 13) {return false;}">
+                <p:growl id="growl" showDetail="false" sticky="false" life="3000" /> 
+                <p:layout>
+                    <p:layoutUnit position="north" style="min-height:200px;">
+
+                        <h4>Cadastro de Usuarios</h4> 
+                        <h:panelGrid id="matchGrid" columns="2">
+
+                            <h:outputLabel value="Nome" for="nome" />
+                            <h:inputText id="nome" value="#{usuarioBean.usuario.nome}"/>
+
+                            <h:outputLabel value="Usuario" for="usuario" />
+                            <h:inputText id="usuario" value="#{usuarioBean.usuario.login}"/>
+
+                            <h:outputLabel value="Senha" for="pass" />
+                            <p:password match="rePass" id="pass" value="#{usuarioBean.usuario.senha}"/>
+
+                            <h:outputLabel value="Confirmar Senha" for="rePass" />
+                            <p:password id="rePass" value="#{usuarioBean.usuario.senha}"/>
+
+                            <h:inputHidden />
+                            <h:commandButton value="Salvar" action="#{usuarioBean.addUsuario()}"/>
+
+                        </h:panelGrid>
+                    </p:layoutUnit>
+
+                    <p:layoutUnit position="center" style="min-height:200px;">
+                        <h4>Tela Listagem</h4> 
+                        <p:dataTable value="#{usuarioBean.listarUsuarios()}" style="font-size: 70%; text-align: center" var="lista" styleClass="lista_cliente">
+                            <p:column>
+                                <f:facet name="header">
+                                    Nome
+                                </f:facet>
+                                <p:outputLabel value="#{lista.nome}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    Login
+                                </f:facet>
+                                <p:outputLabel value="#{lista.login}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header" rendered="center">
+                                    Ações
+                                </f:facet>
+                                <h:commandButton value="Deletar" action="#{usuarioBean.removeClientes(lista)}" /> | 
+                                <h:commandButton value="Editar" action="#{usuarioBean.carregarClientes(lista)}" />
+                            </p:column>
+                        </p:dataTable>
+                    </p:layoutUnit>
+                </p:layout>
+            </h:form>
+        </h:body>
+    </ui:define>
+</ui:composition>

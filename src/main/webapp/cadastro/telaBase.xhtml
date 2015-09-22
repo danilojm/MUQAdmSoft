@@ -1,0 +1,94 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/principal/principal.xhtml">
+    <ui:define name="source">
+        <h:head>
+            <title>Tela Base</title>
+        </h:head>
+        <h:body>
+            <h:form> 
+                <p:growl id="growl" showDetail="true" sticky="true" /> 
+                <p:layout>
+                    <p:layoutUnit position="north" style="min-height:200px;">
+                        <h4>Tela Cadastro</h4> 
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Nome" for="nome" />
+                            <h:inputText id="nome" value="#{loginBean.usuario.nome}"/>
+
+
+                            <h:outputLabel value="Usuario" for="usuario" />
+                            <h:inputText id="usuario" value="#{loginBean.usuario.username}"/>
+
+
+                            <h:outputLabel value="Senha" for="pass" />
+                            <h:inputSecret id="pass" value="#{loginBean.usuario.password}"/>
+
+                            <h:inputHidden/>
+                            <h:commandButton value="Salvar" action="#{loginBean.addUsuario()}"/>
+
+                        </h:panelGrid>
+                    </p:layoutUnit>
+
+                    <p:layoutUnit position="center" style="min-height:200px;">
+                        <h4>Tela Listagem</h4> 
+                        <h:dataTable value="#{clienteBean.listarClientes()}" style="font-size: 70%" var="lista" border="1" styleClass="lista_cliente">
+                            <h:column>
+                                <f:facet name="header">
+                                    Nome
+                                </f:facet>
+                                <h:outputText value="#{lista.nome}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    Endereço
+                                </f:facet>
+                                <h:outputText value="#{lista.endereco}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    Telefone Res
+                                </f:facet>
+                                <h:outputText value="#{lista.telefoneRes}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    Telefone Cel 1
+                                </f:facet>
+                                <h:outputText value="#{lista.telefoneCel}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    Telefone Cel 2
+                                </f:facet>
+                                <h:outputText value="#{lista.telefoneCel2}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    Email
+                                </f:facet>
+                                <h:outputText value="#{lista.email}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header" rendered="center">
+                                    Ações
+                                </f:facet>
+                                <h:commandLink value="Deletar" action="#{clienteBean.removeClientes(lista)}" /> | 
+                                <h:commandLink value="Editar" action="#{clienteBean.carregarClientes(lista)}" />
+                            </h:column>
+
+                        </h:dataTable>
+                    </p:layoutUnit>
+                </p:layout>
+            </h:form>
+        </h:body>
+    </ui:define>
+</ui:composition>

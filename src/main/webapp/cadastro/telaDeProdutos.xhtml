@@ -1,0 +1,79 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/principal/principal.xhtml">
+    <ui:define name="source">
+        <h:head>
+            <title>Clientes</title>
+        </h:head>
+        <h:body>
+            <h:form onkeypress="if (event.keyCode === 13) {return false;}">
+                <p:growl id="growl" showDetail="false" sticky="false" life="3000" /> 
+                <p:layout>
+                    <p:layoutUnit position="north" style="min-height:200px;">
+
+                        <h4>Cadastro de Produtos</h4> 
+                        <h:panelGrid columns="2">
+
+                            <h:outputLabel value="Produto" for="nomeProduto" />                            
+                            <h:selectOneMenu id="nomeProduto" value="#{produtoBean.produtos.nomeProduto}">
+                                <f:selectItems value="#{produtoBean.listarNomeTipoProdutos()}"/>
+                            </h:selectOneMenu>
+
+                            <h:outputLabel value="Tipo Produto" for="tipoProduto" />                            
+                            <h:selectOneMenu id="tipoProduto"  value="#{produtoBean.produtos.tipoProduto}">
+                                <f:selectItem itemValue="Cerâmica" itemLabel="Cerâmica"/>
+                                <f:selectItem itemValue="Acrilica" itemLabel="Acrilica"/>
+                                <f:selectItem itemValue="Cônica" itemLabel="Cônica"/>
+                            </h:selectOneMenu>
+
+                            <h:outputLabel value="Quantidade Produto" for="quantProduto" />
+                            <h:inputText id="quantProduto" value="#{produtoBean.produtos.quantidade}"/>
+
+                            <h:inputHidden />
+                            <h:commandButton value="Salvar" action="#{produtoBean.saveProdutos()}"/>
+
+                        </h:panelGrid>
+                    </p:layoutUnit>
+
+                    <p:layoutUnit position="center" style="min-height:200px;">
+                        <h4>Tela Listagem</h4> 
+                        <p:dataTable value="#{produtoBean.listarProdutos()}" style="font-size: 70%; text-align: center" var="lista" styleClass="lista_cliente">
+                            <p:column>
+                                <f:facet name="header">
+                                    Nome
+                                </f:facet>
+                                <p:outputLabel value="#{lista.nomeProduto}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    Tipo
+                                </f:facet>
+                                <p:outputLabel value="#{lista.tipoProduto}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    Quant em Estoque
+                                </f:facet>
+                                <p:outputLabel value="#{lista.quantidade}"/>
+                            </p:column>
+
+
+                            <p:column>
+                                <f:facet name="header" rendered="center">
+                                    Ações
+                                </f:facet>
+                                <h:commandButton value="Deletar" action="#{produtoBean.removeProduto(lista)}" /> |
+                                <h:commandButton value="Editar" action="#{produtoBean.carregarProdutos(lista)}" />
+                            </p:column>
+                        </p:dataTable>
+                    </p:layoutUnit>
+                </p:layout>
+            </h:form>
+        </h:body>
+    </ui:define>
+</ui:composition>

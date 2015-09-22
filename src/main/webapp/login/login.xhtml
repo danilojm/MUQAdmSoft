@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>LogIn</title>
+        <h:outputStylesheet library="css" name="styles.css"/>
+    </h:head>
+    <h:body>
+        <h:form>
+
+            <p:growl id="growl" sticky="false" showDetail="false" life="3000" />
+
+            <p:panelGrid columns="2" style="margin-top: 18%; margin-left: auto; margin-right: auto">
+                <f:facet name="header">LogIn</f:facet>
+
+                <h:outputText value="Usuário" />
+                <p:inputText value="#{usuarioBean.usuario.login}" />
+
+                <h:outputText value="Senha" />
+                <p:password value="#{usuarioBean.usuario.senha}" />
+
+                <f:facet name="footer">
+                    <h:commandButton value="Login" action="#{usuarioBean.control()}" />
+                </f:facet>
+            </p:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+
