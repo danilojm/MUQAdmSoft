@@ -16,7 +16,7 @@ public class TipoProduto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String produto;
-    private String tiposProduto;
+    private String tipoDeProduto;
     private String cor;
     private String tamanho;
     private String descricao;
@@ -37,12 +37,12 @@ public class TipoProduto implements Serializable {
         this.produto = produto;
     }
 
-    public String getTiposProduto() {
-        return tiposProduto;
+    public String getTipoDeProduto() {
+        return tipoDeProduto;
     }
 
-    public void setTiposProduto(String tiposProduto) {
-        this.tiposProduto = tiposProduto;
+    public void setTipoDeProduto(String tipoDeProduto) {
+        this.tipoDeProduto = tipoDeProduto;
     }
 
     public String getCor() {

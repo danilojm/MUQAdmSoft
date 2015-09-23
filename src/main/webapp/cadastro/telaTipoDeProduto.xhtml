@@ -9,9 +9,7 @@
             <title>Tipos de Produto</title>
         </h:head>
         <h:body>
-            <h:form onkeypress="if (event.keyCode === 13) {
-                        return false;
-                    }">
+            <h:form onkeypress="if (event.keyCode === 13) {return false;}">
                 <p:growl id="growl" showDetail="false" sticky="false" life="3000" /> 
                 <p:layout>
                     <p:layoutUnit position="north" style="min-height:200px;">
@@ -23,7 +21,7 @@
                             <h:inputText id="produto" value="#{tipoProdutoBean.tipoProduto.produto}"/>
                             
                             <h:outputLabel value="Tipo de Produto" for="tipoProduto" />
-                            <h:inputText id="tipoProduto" value="#{tipoProdutoBean.tipoProduto.tipoProduto}"/>                          
+                            <h:inputText id="tipoProduto" value="#{tipoProdutoBean.tipoProduto.tipoDeProduto}"/>                          
 
                             <h:outputLabel value="Cor do Produto" for="corProduto" />
                             <h:inputText id="corProduto" value="#{tipoProdutoBean.tipoProduto.cor}"/>
@@ -56,7 +54,7 @@
                                     <f:facet name="header">
                                         Tipo
                                     </f:facet>
-                                    <p:outputLabel value="#{lista.tipoProduto}"/>
+                                    <p:outputLabel value="#{lista.tipoDeProduto}"/>
                                 </p:column>
 
                                 <p:column>

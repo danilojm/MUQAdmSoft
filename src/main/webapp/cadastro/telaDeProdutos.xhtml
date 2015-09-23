@@ -9,17 +9,13 @@
             <title>Clientes</title>
         </h:head>
         <h:body>
-            <h:form onkeypress="if (event.keyCode === 13) {
-                        return false;
-                    }">
+            <h:form onkeypress="if (event.keyCode === 13) {return false;}">
                 <p:growl id="growl" showDetail="false" sticky="false" life="3000" /> 
                 <p:layout>
                     <p:layoutUnit position="north" style="min-height:200px;">
 
                         <h4>Cadastro de Produtos</h4> 
                         <h:panelGrid columns="2">
-
-
 
                             <p:outputLabel for="produto" value="Produto: " />
                             <p:selectOneMenu id="produto" value="#{produtoBean.produto}" style="width:150px">

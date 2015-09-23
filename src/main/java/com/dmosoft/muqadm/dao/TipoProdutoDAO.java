@@ -14,7 +14,6 @@ import com.mysema.query.jpa.hibernate.HibernateDeleteClause;
 import com.mysema.query.jpa.hibernate.HibernateQuery;
 import com.mysema.query.jpa.hibernate.HibernateUpdateClause;
 import java.io.Serializable;
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +44,6 @@ public class TipoProdutoDAO implements Serializable {
     //private TipoProduto tipoProduto;
     public void saveTipoProduto(TipoProduto tProduto) {
         try {
-
             criarSessao();
 
             QTipoProduto qtp = QTipoProduto.tipoProduto;
@@ -124,12 +122,12 @@ public class TipoProdutoDAO implements Serializable {
 
                 if (!prod.containsKey(next.getProduto())) {
                     Map<String, String> p = new HashMap<>();
-                    p.put(next.getTiposProduto(), next.getCor());
+                    p.put(next.getTipoDeProduto(), next.getCor());
                     prod.put(next.getProduto(), p);
                 }
 
                 produtoList.add(next.getProduto());
-                tipoProdutoList.add(next.getTiposProduto());
+                tipoProdutoList.add(next.getTipoDeProduto());
                 corProdutoList.add(next.getCor());
 
             }
