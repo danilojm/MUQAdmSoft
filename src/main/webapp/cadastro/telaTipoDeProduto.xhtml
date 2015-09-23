@@ -19,8 +19,11 @@
                         <h4>Cadastro Tipos de Produtos</h4> 
                         <h:panelGrid columns="2">
 
+                            <h:outputLabel value="Produto" for="produto" />
+                            <h:inputText id="produto" value="#{tipoProdutoBean.tipoProduto.produto}"/>
+                            
                             <h:outputLabel value="Tipo de Produto" for="tipoProduto" />
-                            <h:inputText id="tipoProduto" value="#{tipoProdutoBean.tipoProduto.tipo}"/>                          
+                            <h:inputText id="tipoProduto" value="#{tipoProdutoBean.tipoProduto.tipoProduto}"/>                          
 
                             <h:outputLabel value="Cor do Produto" for="corProduto" />
                             <h:inputText id="corProduto" value="#{tipoProdutoBean.tipoProduto.cor}"/>
@@ -41,11 +44,19 @@
                         <h4>Lista Tipo Produto</h4> 
                         <center>
                             <p:dataTable value="#{tipoProdutoBean.listarTipoProdutos()}" style="font-size: 70%; text-align: center" var="lista" styleClass="lista_cliente">
+                                
+                                <p:column style="alignment-adjust: central">
+                                    <f:facet name="header">
+                                        Produto
+                                    </f:facet>
+                                    <p:outputLabel value="#{lista.produto}"/>
+                                </p:column>
+                                
                                 <p:column style="alignment-adjust: central">
                                     <f:facet name="header">
                                         Tipo
                                     </f:facet>
-                                    <p:outputLabel value="#{lista.tipo}"/>
+                                    <p:outputLabel value="#{lista.tipoProduto}"/>
                                 </p:column>
 
                                 <p:column>

@@ -3,7 +3,6 @@ package com.dmosoft.muqadm.bean;
 import com.dmosoft.muqadm.dao.TipoProdutoDAO;
 import com.dmosoft.muqadm.model.TipoProduto;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -14,7 +13,6 @@ public class TipoProdutoBean implements Serializable {
 
     private TipoProduto tipoProduto = new TipoProduto();
     private final TipoProdutoDAO tipoProdutoDAO = new TipoProdutoDAO();
-    private List listaTipoProduto = new ArrayList();
 
     public String saveTipoProdutos() {
         tipoProdutoDAO.saveTipoProduto(tipoProduto);
@@ -23,14 +21,13 @@ public class TipoProdutoBean implements Serializable {
     }
 
     public String removeTipoProduto(TipoProduto tProduto) {
-        this.tipoProduto = tProduto;
-        tipoProdutoDAO.removeTipoProduto(tipoProduto);
+        tipoProdutoDAO.removeTipoProduto(tProduto);
         tipoProduto = new TipoProduto();
         return "/cadastro/telaTipoDeProduto";
     }
 
     public String carregarTipoProdutos(TipoProduto tProduto) {
-        this.tipoProduto = tProduto;
+        tipoProduto = tProduto;
         return "/cadastro/telaTipoDeProduto";
     }
 
@@ -40,8 +37,7 @@ public class TipoProdutoBean implements Serializable {
     }
 
     public List listarTipoProdutos() {
-        listaTipoProduto = tipoProdutoDAO.listarTipoProdutos();
-        return listaTipoProduto;
+        return tipoProdutoDAO.listarTipoProdutos();
     }
 
     public TipoProduto getTipoProduto() {

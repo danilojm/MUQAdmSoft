@@ -12,13 +12,13 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class ProdutoBean implements Serializable {
 
-    private Produto produtos = new Produto();
+    private Produto produto = new Produto();
     private final ProdutoDAO pdao = new ProdutoDAO();
     private final TipoProdutoDAO tipoProdutoDAO = new TipoProdutoDAO();
 
     public String saveProdutos() {
-        pdao.saveProduto(produtos);
-        produtos = new Produto();
+        pdao.saveProduto(produto);
+        produto = new Produto();
         return "/cadastro/telaDeProdutos";
     }
 
@@ -27,26 +27,26 @@ public class ProdutoBean implements Serializable {
     }
 
     public String removeProduto(Produto p) {
-        produtos = p;
-        pdao.removeProduto(produtos);
-        produtos = new Produto();
+        produto = p;
+        pdao.removeProduto(produto);
+        produto = new Produto();
         return "/cadastro/telaDeProdutos";
     }
 
     public String saidaProduto(Produto p) {
-        produtos = p;
-        pdao.saidaProduto(produtos);
-        produtos = new Produto();
+        produto = p;
+        pdao.saidaProduto(produto);
+        produto = new Produto();
         return "/cadastro/telaDeProdutos";
     }
 
     public String carregarProdutos(Produto p) {
-        produtos = p;
+        produto = p;
         return "/cadastro/telaDeProdutos";
     }
 
     public String limpaTela() {
-        produtos = new Produto();
+        produto = new Produto();
         return "/cadastro/telaDeProdutos";
     }
 
@@ -59,21 +59,21 @@ public class ProdutoBean implements Serializable {
     }
 
     public List listarNomeTipoProdutos() {
-        return tipoProdutoDAO.listarNomeTipoProdutos();
+        return tipoProdutoDAO.getNomeTipoProduto();
     }
 
     public Produto getProdutos() {
-        return produtos;
+        return produto;
     }
 
     public void setProdutos(Produto produtos) {
-        this.produtos = produtos;
+        this.produto = produtos;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 23 * hash + (this.produtos != null ? this.produtos.hashCode() : 0);
+        hash = 23 * hash + (this.produto != null ? this.produto.hashCode() : 0);
         return hash;
     }
 
@@ -86,6 +86,6 @@ public class ProdutoBean implements Serializable {
             return false;
         }
         final ProdutoBean other = (ProdutoBean) obj;
-        return !(this.produtos != other.produtos && (this.produtos == null || !this.produtos.equals(other.produtos)));
+        return !(this.produto != other.produto && (this.produto == null || !this.produto.equals(other.produto)));
     }
 }
