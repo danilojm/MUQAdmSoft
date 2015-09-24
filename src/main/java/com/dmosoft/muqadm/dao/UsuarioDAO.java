@@ -27,6 +27,8 @@ import org.hibernate.Transaction;
  */
 public class UsuarioDAO implements Serializable {
 
+    private static final long serialVersionUID = -9120739963561597292L;
+
     final static Logger logger = Logger.getLogger(UsuarioDAO.class);
 
     private Session session;

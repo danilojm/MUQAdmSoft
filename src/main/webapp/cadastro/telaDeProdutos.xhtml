@@ -3,7 +3,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
-                template="/principal/principal.xhtml">
+                template="/principal/principal.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:define name="source">
         <h:head>
             <title>Clientes</title>
@@ -18,47 +19,39 @@
                         <h:panelGrid columns="2">
 
                             <p:outputLabel for="produto" value="Produto: " />
-                            <p:selectOneMenu id="produto" value="#{produtoBean.produto}" style="width:150px">
-                                <p:ajax listener="#{produtoBean.onProdutoChange}" update="tipoProduto" />
-                                <f:selectItem itemLabel="Select Country" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{produtoBean.produtos}" />
+                            <p:selectOneMenu id="produto" value="#{produtoBean.produto.produto}" style="width:200px">
+                                <p:ajax listener="#{produtoBean.aoMudarProduto()}" update="tipoProduto"  />
+                                <p:ajax update="tamanhoProduto"  />
+                                <p:ajax update="corProduto"  />
+                                <f:selectItem itemLabel="Produto" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{produtoBean.listaProdutos}" />
                             </p:selectOneMenu>
 
                             <p:outputLabel for="tipoProduto" value="Tipo Produto: " />
-                            <p:selectOneMenu id="tipoProduto" value="#{produtoBean.tipoProduto}" style="width:150px">
-                                <p:ajax listener="#{produtoBean.onTipoProdutoChange}" update="corProduto" />
+                            <p:selectOneMenu id="tipoProduto" value="#{produtoBean.produto.tipoProduto}" style="width:200px">
+                                <p:ajax listener="#{produtoBean.aoMudarTipoProduto()}" update="tamanhoProduto"/>
+                                <p:ajax listener="#{produtoBean.aoMudarTipoProduto()}" update="corProduto"/>
                                 <f:selectItem itemLabel="Tipo de Produto" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{produtoBean.tipoProdutos}" />
+                                <f:selectItems value="#{produtoBean.listaTipoProdutos}" />
                             </p:selectOneMenu>
+
+                            <p:outputLabel for="tamanhoProduto" value="Tamanho do Produto: " />
+                            <p:selectOneMenu id="tamanhoProduto" value="#{produtoBean.produto.tamanhoProduto}" style="width:200px">
+                                <p:ajax listener="#{produtoBean.aoMudarTamanhoProduto()}" update="corProduto" />
+                                <f:selectItem itemLabel="Tamanho do Produto" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{produtoBean.listaTamanhoProdutos}" />
+                            </p:selectOneMenu>
+
 
                             <p:outputLabel for="corProduto" value="Cor Produto: " />
-                            <p:selectOneMenu id="corProduto" value="#{produtoBean.corProduto}" style="width:150px">
+                            <p:selectOneMenu id="corProduto" value="#{produtoBean.produto.corProduto}" style="width:200px">
                                 <f:selectItem itemLabel="Cor Produto" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{produtoBean.coresDoProduto}" />
+                                <f:selectItems value="#{produtoBean.listaCorProdutos}" />
                             </p:selectOneMenu>
 
 
-
-
-
-
-
-
-
-
-
-                            <h:outputLabel value="Produto" for="nomeProduto" />                            
-                            <h:selectOneMenu id="nomeProduto" value="#{produtoBean.produtos.nomeProduto}">
-                                <f:selectItems value="#{produtoBean.listarNomeTipoProdutos()}"/>
-                            </h:selectOneMenu>
-
-                            <h:outputLabel value="Tipo Produto" for="tipoProduto" />                            
-                            <h:selectOneMenu id="tipoProduto"  value="#{produtoBean.produtos.tipoProduto}">
-                                <f:selectItems value="#{produtoBean.listarNomeTipoProdutos()}"/>
-                            </h:selectOneMenu>
-
                             <h:outputLabel value="Quantidade Produto" for="quantProduto" />
-                            <h:inputText id="quantProduto" value="#{produtoBean.produtos.quantidade}"/>
+                            <h:inputText id="quantProduto" value="#{produtoBean.produto.quantidade}"/>
 
                             <h:inputHidden />
                             <h:commandButton value="Salvar" action="#{produtoBean.saveProdutos()}"/>
@@ -73,7 +66,7 @@
                                 <f:facet name="header">
                                     Nome
                                 </f:facet>
-                                <p:outputLabel value="#{lista.nomeProduto}"/>
+                                <p:outputLabel value="#{lista.produto}"/>
                             </p:column>
 
                             <p:column>
@@ -81,6 +74,20 @@
                                     Tipo
                                 </f:facet>
                                 <p:outputLabel value="#{lista.tipoProduto}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    Tamanho
+                                </f:facet>
+                                <p:outputLabel value="#{lista.tamanhoProduto}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    Cor
+                                </f:facet>
+                                <p:outputLabel value="#{lista.corProduto}"/>
                             </p:column>
 
                             <p:column>

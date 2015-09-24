@@ -16,6 +16,8 @@ import javax.persistence.Table;
 @Table(name = "usuario")
 public class Usuario implements Serializable {
 
+    private static final long serialVersionUID = -8023269292193016767L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

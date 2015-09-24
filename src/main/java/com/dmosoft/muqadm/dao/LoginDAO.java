@@ -23,6 +23,8 @@ import org.hibernate.Session;
  */
 public class LoginDAO implements Serializable {
 
+    private static final long serialVersionUID = -4775287724030433855L;
+
     private final static Logger logger = Logger.getLogger(LoginDAO.class);
     private Session session;
 

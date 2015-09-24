@@ -25,7 +25,8 @@ import org.hibernate.Transaction;
  */
 public class ClientesDAO implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -1450107230248863806L;
+
     private Session session;
     private Transaction transaction;
     private List<Cliente> lista;

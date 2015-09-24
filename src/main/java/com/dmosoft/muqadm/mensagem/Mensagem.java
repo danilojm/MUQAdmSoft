@@ -5,7 +5,6 @@
  */
 package com.dmosoft.muqadm.mensagem;
 
-import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
@@ -13,13 +12,13 @@ import javax.faces.context.FacesContext;
  *
  * @author DaniloJM
  */
-public class Mensagem implements Serializable {
+public class Mensagem {
 
     public void addMessageInfo(String msgn) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, msgn, null);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
-    
+
     public void addMessageError(String msgn) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgn, null);
         FacesContext.getCurrentInstance().addMessage(null, message);

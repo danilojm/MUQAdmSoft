@@ -10,7 +10,9 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean(name = "tipoProdutoBean")
 @SessionScoped
 public class TipoProdutoBean implements Serializable {
-
+    
+    private static final long serialVersionUID = -4681766834562382335L;
+    
     private TipoProduto tipoProduto = new TipoProduto();
     private final TipoProdutoDAO tipoProdutoDAO = new TipoProdutoDAO();
 

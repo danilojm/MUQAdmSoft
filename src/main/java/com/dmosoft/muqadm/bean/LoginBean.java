@@ -11,7 +11,9 @@ import org.hibernate.HibernateException;
 @ManagedBean(name = "loginBean")
 @SessionScoped
 public class LoginBean implements Serializable {
-
+    
+    private static final long serialVersionUID = 4379852798555225549L;
+    
     public Usuario usuario = new Usuario();
     private final LoginDAO ldao = new LoginDAO();
     public boolean isLogged = false;

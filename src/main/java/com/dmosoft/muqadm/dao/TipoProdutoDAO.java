@@ -29,13 +29,14 @@ import org.hibernate.Transaction;
  */
 public class TipoProdutoDAO implements Serializable {
 
+    private static final long serialVersionUID = -68691896807734587L;
+
     final static Logger logger = Logger.getLogger(TipoProdutoDAO.class);
 
-    private static final long serialVersionUID = 1L;
     private Session session;
     private Transaction transaction;
 
-    public List<String> produtoList = new ArrayList<>();
+    public List<TipoProduto> produtoList = new ArrayList<>();
     public List<String> tipoProdutoList = new ArrayList<>();
     public List<String> corProdutoList = new ArrayList<>();
 
@@ -53,7 +54,11 @@ public class TipoProdutoDAO implements Serializable {
                     logger.info("Classe TipoProdutoDAO, atualizando tipo produto...");
                     new HibernateUpdateClause(session, qtp)
                             .where(qtp.id.eq(tProduto.getId()))
-                            .set(qtp, tProduto)
+                            .set(qtp.produto, tProduto.getProduto())
+                            .set(qtp.tipoDeProduto, tProduto.getTipoDeProduto())
+                            .set(qtp.tamanho, tProduto.getTamanho())
+                            .set(qtp.cor, tProduto.getCor())
+                            .set(qtp.descricao, tProduto.getDescricao())
                             .execute();
                     transaction.commit();
                     new Mensagem().addMessageInfo("Atualizado com Sucesso!");
@@ -119,19 +124,8 @@ public class TipoProdutoDAO implements Serializable {
             result = query.from(qtp).list(new QTipoProduto(qtp));
 
             for (TipoProduto next : result) {
-
-                if (!prod.containsKey(next.getProduto())) {
-                    Map<String, String> p = new HashMap<>();
-                    p.put(next.getTipoDeProduto(), next.getCor());
-                    prod.put(next.getProduto(), p);
-                }
-
-                produtoList.add(next.getProduto());
-                tipoProdutoList.add(next.getTipoDeProduto());
-                corProdutoList.add(next.getCor());
-
+                produtoList.add(next);
             }
-
         } catch (HibernateException he) {
             logger.info("Classe TipoProdutoDAO, erro ao listar Tipo de Produtos...\n" + he.getLocalizedMessage());
             new Mensagem().addMessageError("Erro ao tentar listar!");
@@ -143,18 +137,11 @@ public class TipoProdutoDAO implements Serializable {
         return result;
     }
 
-    public List<String> getNomeTipoProduto() {
-        if (produtoList.isEmpty()) {
+    public List<TipoProduto> getListaProduto() {
+        if (produtoList == null || produtoList.isEmpty()) {
             listarTipoProdutos();
         }
         return produtoList;
-    }
-
-    public List<String> getTipoProduto() {
-        if (tipoProdutoList.isEmpty()) {
-            listarTipoProdutos();
-        }
-        return tipoProdutoList;
     }
 
     private void criarSessao() {

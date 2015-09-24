@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -22,18 +21,16 @@ import javax.persistence.Table;
 @Table(name = "produto")
 public class Produto implements Serializable {
 
-    //private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1971129212786190047L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String nomeProduto;
+    private String produto;
     private String tipoProduto;
     private String corProduto;
+    private String tamanhoProduto;
     private Integer quantidade;
-    private Integer quantidadePersonalizacao;
-
-    @ManyToOne
-    private FabricanteProduto fabricanteProduto;
 
     public Produto() {
     }
@@ -50,12 +47,20 @@ public class Produto implements Serializable {
         this.id = id;
     }
 
-    public String getNomeProduto() {
-        return nomeProduto;
+    public String getProduto() {
+        return produto;
     }
 
-    public void setNomeProduto(String nomeProduto) {
-        this.nomeProduto = nomeProduto;
+    public void setProduto(String produto) {
+        this.produto = produto;
+    }
+
+    public String getTamanhoProduto() {
+        return tamanhoProduto;
+    }
+
+    public void setTamanhoProduto(String tamanhoProduto) {
+        this.tamanhoProduto = tamanhoProduto;
     }
 
     public String getTipoProduto() {
@@ -74,28 +79,12 @@ public class Produto implements Serializable {
         this.corProduto = corProduto;
     }
 
-    public Integer getQuantidadePersonalizacao() {
-        return quantidadePersonalizacao;
-    }
-
-    public void setQuantidadePersonalizacao(Integer quantidadePersonalizacao) {
-        this.quantidadePersonalizacao = quantidadePersonalizacao;
-    }
-
     public Integer getQuantidade() {
         return quantidade;
     }
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
-    }
-
-    public FabricanteProduto getFabricanteProduto() {
-        return fabricanteProduto;
-    }
-
-    public void setFabricanteProduto(FabricanteProduto fabricanteProduto) {
-        this.fabricanteProduto = fabricanteProduto;
     }
 
     @Override

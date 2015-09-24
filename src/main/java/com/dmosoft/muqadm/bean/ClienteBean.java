@@ -11,6 +11,8 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean(name = "clienteBean")
 @SessionScoped
 public class ClienteBean implements Serializable {
+    
+    private static final long serialVersionUID = 8558237494534882801L;
 
     private Cliente clientes = new Cliente();
     private ClientesDAO cdao = new ClientesDAO();
