@@ -10,7 +10,9 @@
             <title>Clientes</title>
         </h:head>
         <h:body>
-            <h:form onkeypress="if (event.keyCode === 13) {return false;}">
+            <h:form onkeypress="if (event.keyCode === 13) {
+                        return false;
+                    }">
                 <p:growl id="growl" showDetail="false" sticky="false" life="3000" /> 
                 <p:layout>
                     <p:layoutUnit position="north" style="min-height:200px;">
@@ -18,14 +20,15 @@
                         <h4>Cadastro de Produtos</h4> 
                         <h:panelGrid columns="2">
 
-                            <p:outputLabel for="produto" value="Produto: " />
-                            <p:selectOneMenu id="produto" value="#{produtoBean.produto.produto}" style="width:200px">
+                            <p:outputLabel value="Produto: " for="produto" />
+                            <p:autoComplete id="produto"
+                                            value="#{produtoBean.produto.produto}" 
+                                            completeMethod="#{produtoBean.completeText}">
+
                                 <p:ajax listener="#{produtoBean.aoMudarProduto()}" update="tipoProduto"  />
-                                <p:ajax update="tamanhoProduto"  />
-                                <p:ajax update="corProduto"  />
-                                <f:selectItem itemLabel="Produto" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{produtoBean.listaProdutos}" />
-                            </p:selectOneMenu>
+                                <p:ajax listener="#{produtoBean.aoMudarProduto()}" update="tamanhoProduto"  />
+                                <p:ajax listener="#{produtoBean.aoMudarProduto()}" update="corProduto"  />
+                            </p:autoComplete>
 
                             <p:outputLabel for="tipoProduto" value="Tipo Produto: " />
                             <p:selectOneMenu id="tipoProduto" value="#{produtoBean.produto.tipoProduto}" style="width:200px">

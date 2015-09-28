@@ -5,6 +5,7 @@
  */
 package com.dmosoft.muqadm.dao;
 
+import com.dmosoft.muqadm.mensagem.Mensagem;
 import com.dmosoft.muqadm.model.QUsuario;
 import com.dmosoft.muqadm.model.Usuario;
 import com.dmosoft.muqadm.util.HibernateUtil;
@@ -57,16 +58,18 @@ public class UsuarioDAO implements Serializable {
                         .where(qUsuario.id.eq(u.getId()))
                         .set(qUsuario, u)
                         .execute();
+                transaction.commit();
                 logger.info("Classe UsuarioDAO, Update Usuario " + u.getNome());
             } else {
                 session.save(u);
+                transaction.commit();
                 logger.info("Classe UsuarioDAO, Save Usuario " + u.getNome());
             }
         } catch (HibernateException he) {
-            logger.info("Classe UsuarioDAO, Erro ao salvar Usuario");
+            logger.error("Classe UsuarioDAO, Erro ao salvar Usuario...\n" + he.getLocalizedMessage());
+            new Mensagem().addMessageError(he.getMessage());
         } finally {
             if (session != null) {
-                transaction.commit();
                 session.close();
             }
         }
@@ -105,8 +108,10 @@ public class UsuarioDAO implements Serializable {
                     .where(qUsuario.id.eq(u.getId()))
                     .execute();
             transaction.commit();
+            new Mensagem().addMessageInfo("Classe UsuarioDAO, Usuario " + u.getNome() + " removido");
             logger.info("Classe UsuarioDAO, Usuario " + u.getNome() + " removido");
         } catch (HibernateException ex) {
+            new Mensagem().addMessageError("Classe UsuarioDAO, erro ao remover usuário!");
             logger.error("Classe UsuarioDAO, Erro ao tentar remover\n" + ex.getLocalizedMessage());
         }
     }

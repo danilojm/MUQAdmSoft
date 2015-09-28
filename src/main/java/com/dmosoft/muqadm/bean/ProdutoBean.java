@@ -84,6 +84,20 @@ public class ProdutoBean implements Serializable {
         }
     }
 
+    public List<String> completeText(String query) {
+
+        List<String> results = new ArrayList<String>();
+        
+        for (String prod : listaProdutos) {
+            if(prod.contains(query)){
+                results.add(prod);
+            }
+        }
+                
+
+        return results;
+    }
+
     public void aoMudarProduto() {
         if (produto.getProduto() != null && !produto.getProduto().equals("")) {
             String tipoProd = produto.getProduto();
