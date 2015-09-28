@@ -21,7 +21,7 @@ public class ClienteBean implements Serializable {
     public String saveClientes() {
         cdao.saveCliente(clientes);
         clientes = new Cliente();
-        return "/cadastro/telaDeClientes";
+        return "/telas/telaDeClientes";
     }
 
     public String logout() {
@@ -32,18 +32,18 @@ public class ClienteBean implements Serializable {
         clientes = c;
         cdao.removeCliente(clientes);
         clientes = new Cliente();
-        return "/cadastro/telaDeClientes";
+        return "/telas/telaDeClientes";
     }
 
     public String carregarClientes(Cliente c) {
         clientes = new Cliente();
         clientes = c;
-        return "/cadastro/telaDeClientes";
+        return "/telas/telaDeClientes";
     }
 
     public String limpaTela() {
         clientes = new Cliente();
-        return "/cadastro/telaDeClientes";
+        return "/telas/telaDeClientes";
     }
 
     public List listarClientes() {

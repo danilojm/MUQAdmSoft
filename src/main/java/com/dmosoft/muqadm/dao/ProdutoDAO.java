@@ -96,7 +96,7 @@ public class ProdutoDAO implements Serializable {
 
             QProduto qProduto = QProduto.produto1;
             JPQLQuery query = new HibernateQuery(session);
-            result = query.from(qProduto).list(new QProduto(qProduto));
+            result = query.from(qProduto).orderBy(qProduto.produto.asc()).list(new QProduto(qProduto));
 
         } catch (HibernateException he) {
             new Mensagem().addMessageError("Erro ao tentar listar!");
@@ -116,5 +116,29 @@ public class ProdutoDAO implements Serializable {
         } catch (HibernateException e) {
             e.printStackTrace();
         }
+    }
+
+    public Produto copiarItem(Produto p) {
+        Produto prod = new Produto();
+        if (p.getProduto() != null) {
+            prod.setProduto(p.getProduto());
+        }
+
+        if (p.getTipoProduto() != null) {
+            prod.setTipoProduto(p.getTipoProduto());
+        }
+
+        if (p.getTamanhoProduto() != null) {
+            prod.setTamanhoProduto(p.getTamanhoProduto());
+        }
+
+        if (p.getQuantidade() != null) {
+            prod.setQuantidade(p.getQuantidade());
+        }
+
+        if (p.getCorProduto() != null) {
+            prod.setCorProduto(p.getCorProduto());
+        }
+        return prod;
     }
 }

@@ -40,24 +40,39 @@ public class ProdutoBean implements Serializable {
     public String saveProdutos() {
         pdao.saveProduto(produto);
         produto = new Produto();
-        return "/cadastro/telaDeProdutos";
+        return "/telas/telaDeProdutos";
     }
 
     public String removeProduto(Produto p) {
+        produto = new Produto();
         produto = p;
         pdao.removeProduto(produto);
         produto = new Produto();
-        return "/cadastro/telaDeProdutos";
+        return "/telas/telaDeProdutos";
     }
 
     public String carregarProdutos(Produto p) {
+        produto = new Produto();        
         produto = p;
-        return "/cadastro/telaDeProdutos";
+        aoMudarProduto();
+        aoMudarTipoProduto();
+        aoMudarTamanhoProduto();
+        return "/telas/telaDeProdutos";
+    }
+    
+    public String copiarProdutos(Produto p) {
+        produto = new Produto();
+        produto = pdao.copiarItem(p);
+        aoMudarProduto();
+        aoMudarTipoProduto();
+        aoMudarTamanhoProduto();
+        LOG.info("Copiar produtos...");
+        return "/telas/telaDeProdutos";
     }
 
     public String limpaTela() {
         produto = new Produto();
-        return "/cadastro/telaDeProdutos";
+        return "/telas/telaDeProdutos";
     }
 
     public List listarProdutos() {
@@ -118,9 +133,8 @@ public class ProdutoBean implements Serializable {
 
     public void aoMudarTipoProduto() {
         if (produto.getTipoProduto() != null && !produto.getTipoProduto().equals("")) {
-
+            
             listaTamanhoProdutos = new ArrayList<>();
-
             for (TipoProduto lista : tipoProdutos) {
                 if (lista.getProduto().equals(produto.getProduto())
                         && lista.getTipoDeProduto().equals(produto.getTipoProduto())) {

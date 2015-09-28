@@ -87,9 +87,6 @@ public class TipoProduto implements Serializable {
             return false;
         }
         final TipoProduto other = (TipoProduto) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.id, other.id);
     }
 }

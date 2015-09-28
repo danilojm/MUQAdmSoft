@@ -14,7 +14,7 @@ import org.hibernate.HibernateException;
 @ManagedBean(name = "usuarioBean")
 @SessionScoped
 public class UsuarioBean implements Serializable {
-    
+
     private static final long serialVersionUID = -5197112493136474614L;
 
     private Usuario usuario = new Usuario();
@@ -42,7 +42,7 @@ public class UsuarioBean implements Serializable {
 
     public String limpaTela() {
         usuario = new Usuario();
-        return "/cadastro/telaDeUsuarios";
+        return "/telas/telaDeUsuarios";
     }
 
     public String control() {
@@ -67,7 +67,7 @@ public class UsuarioBean implements Serializable {
 
     public String addUsuario() {
         usuarioDAO.saveUsuario(usuario);
-        return "/cadastro/telaDeUsuarios.xhtml?faces-redirect=true";
+        return "/telas/telaDeUsuarios.xhtml?faces-redirect=true";
     }
 
     public List listarUsuarios() {
@@ -76,14 +76,16 @@ public class UsuarioBean implements Serializable {
     }
 
     public String removeClientes(Usuario u) {
+        usuario = new Usuario();
         usuario = u;
         usuarioDAO.removeUsuario(usuario);
         usuario = new Usuario();
-        return "/cadastro/telaDeUsuarios";
+        return "/telas/telaDeUsuarios";
     }
 
     public String carregarClientes(Usuario u) {
+        usuario = new Usuario();
         usuario = u;
-        return "/cadastro/telaDeUsuarios";
+        return "/telas/telaDeUsuarios";
     }
 }

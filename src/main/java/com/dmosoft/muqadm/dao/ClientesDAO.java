@@ -78,9 +78,9 @@ public class ClientesDAO implements Serializable {
             criarSessao();
 
             QCliente qCliente = QCliente.cliente;
-            
+
             new HibernateDeleteClause(session, qCliente).where(qCliente.id.eq(clientes.getId())).execute();
-            
+
             new Mensagem().addMessageInfo("Deletado com Sucesso!");
 
             transaction.commit();
@@ -97,7 +97,7 @@ public class ClientesDAO implements Serializable {
 
             QCliente qCliente = QCliente.cliente;
             JPQLQuery query = new HibernateQuery(session);
-            lista = query.from(qCliente).list(new QCliente(qCliente));
+            lista = query.from(qCliente).orderBy(qCliente.nome.asc()).list(new QCliente(qCliente));
 
 //            Criteria criteria = session.createCriteria(Cliente.class);
 //            lista = criteria.list();

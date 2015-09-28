@@ -121,7 +121,7 @@ public class TipoProdutoDAO implements Serializable {
 
             prod = new HashMap<>();
 
-            result = query.from(qtp).list(new QTipoProduto(qtp));
+            result = query.from(qtp).orderBy(qtp.produto.asc()).list(new QTipoProduto(qtp));
 
             for (TipoProduto next : result) {
                 produtoList.add(next);
@@ -153,6 +153,29 @@ public class TipoProdutoDAO implements Serializable {
             logger.error("Classe TipoProdutoDAO, erro ao criar sessão...");
             e.printStackTrace();
         }
+    }
+
+    public TipoProduto copiarItem(TipoProduto tp) {
+        TipoProduto tipoProduto = new TipoProduto();
+        if (tp.getProduto() != null) {
+            tipoProduto.setProduto(tp.getProduto());
+        }
+        if (tp.getTipoDeProduto() != null) {
+            tipoProduto.setTipoDeProduto(tp.getTipoDeProduto());
+        }
+
+        if (tp.getTamanho() != null) {
+            tipoProduto.setTamanho(tp.getTamanho());
+        }
+
+        if (tp.getCor() != null) {
+            tipoProduto.setCor(tp.getCor());
+        }
+
+        if (tp.getDescricao() != null) {
+            tipoProduto.setDescricao(tp.getDescricao());
+        }
+        return tipoProduto;
     }
 
 }

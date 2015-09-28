@@ -123,7 +123,7 @@ public class UsuarioDAO implements Serializable {
 
             QUsuario qUsuario = QUsuario.usuario;
             JPQLQuery query = new HibernateQuery(session);
-            lista = query.from(qUsuario).list(new QUsuario(qUsuario));
+            lista = query.from(qUsuario).orderBy(qUsuario.nome.asc()).list(new QUsuario(qUsuario));
 
         } catch (HibernateException he) {
             he.printStackTrace();
