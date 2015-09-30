@@ -49,7 +49,7 @@ public class ClientesDAO implements Serializable {
                             .set(qCliente.telefoneCel, cliente.getTelefoneCel())
                             .set(qCliente.telefoneCel2, cliente.getTelefoneCel2())
                             .execute();
-
+                    transaction.commit();
                     new Mensagem().addMessageInfo("Atualizado com Sucesso!");
                 } catch (HibernateException ex) {
                     new Mensagem().addMessageError("Erro ao tentar Atualizar\n" + ex.getLocalizedMessage());
@@ -58,12 +58,13 @@ public class ClientesDAO implements Serializable {
                 try {
                     this.cliente = cliente;
                     session.save(this.cliente);
+                    transaction.commit();
                     new Mensagem().addMessageInfo("Salvo com Sucesso!");
                 } catch (HibernateException he) {
                     new Mensagem().addMessageError("Erro ao Salvar");
                 }
             }
-            transaction.commit();
+
         } catch (HibernateException e) {
             new Mensagem().addMessageError("Erro\n" + e.getLocalizedMessage());
         } finally {

@@ -2,10 +2,14 @@ package com.dmosoft.muqadm.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,7 +21,12 @@ public class TipoProduto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String produto;
+
+    @Column(unique = true)
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    private Integer codProduto;
+
+    private String nomeProduto;
     private String tipoDeProduto;
     private String cor;
     private String tamanho;
@@ -31,12 +40,20 @@ public class TipoProduto implements Serializable {
         this.id = id;
     }
 
-    public String getProduto() {
-        return produto;
+    public Integer getCodProduto() {
+        return codProduto;
     }
 
-    public void setProduto(String produto) {
-        this.produto = produto;
+    public void setCodProduto(Integer codProduto) {
+        this.codProduto = codProduto;
+    }
+
+    public String getNomeProduto() {
+        return nomeProduto;
+    }
+
+    public void setNomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
     }
 
     public String getTipoDeProduto() {

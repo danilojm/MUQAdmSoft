@@ -7,10 +7,14 @@ package com.dmosoft.muqadm.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -26,18 +30,11 @@ public class Produto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String produto;
-    private String tipoProduto;
-    private String corProduto;
-    private String tamanhoProduto;
     private Integer quantidade;
 
-    public Produto() {
-    }
-
-    public Produto(Integer id) {
-        this.id = id;
-    }
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "codProduto")
+    private Integer codProduto;
 
     public Integer getId() {
         return id;
@@ -47,44 +44,20 @@ public class Produto implements Serializable {
         this.id = id;
     }
 
-    public String getProduto() {
-        return produto;
-    }
-
-    public void setProduto(String produto) {
-        this.produto = produto;
-    }
-
-    public String getTamanhoProduto() {
-        return tamanhoProduto;
-    }
-
-    public void setTamanhoProduto(String tamanhoProduto) {
-        this.tamanhoProduto = tamanhoProduto;
-    }
-
-    public String getTipoProduto() {
-        return tipoProduto;
-    }
-
-    public void setTipoProduto(String tipoProduto) {
-        this.tipoProduto = tipoProduto;
-    }
-
-    public String getCorProduto() {
-        return corProduto;
-    }
-
-    public void setCorProduto(String corProduto) {
-        this.corProduto = corProduto;
-    }
-
     public Integer getQuantidade() {
         return quantidade;
     }
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public Integer getCodProduto() {
+        return codProduto;
+    }
+
+    public void setCodProduto(Integer codProduto) {
+        this.codProduto = codProduto;
     }
 
     @Override

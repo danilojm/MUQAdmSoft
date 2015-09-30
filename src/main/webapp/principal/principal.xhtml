@@ -25,12 +25,16 @@
                         <p:slideMenu style="width:250px;height: 200px">
 
                             <p:submenu label="Vender">
-
+                                <p:menuitem value="Produtos"
+                                            action="#{vendasProdutoBean.limpaTela()}"
+                                            ajax="false"/>
 
                             </p:submenu>
 
                             <p:submenu label="Comprar">
-
+                                <p:menuitem value="Produtos"
+                                            action="#{produtoBean.limpaTela()}"
+                                            ajax="false"/>
 
                             </p:submenu>
 
@@ -43,9 +47,6 @@
                                             action="#{tipoProdutoBean.limpaTela()}"
                                             ajax="false"/>
 
-                                <p:menuitem value="Produtos"
-                                            action="#{produtoBean.limpaTela()}"
-                                            ajax="false"/>
 
                                 <p:menuitem value="Usuários"
                                             action="#{usuarioBean.limpaTela()}"

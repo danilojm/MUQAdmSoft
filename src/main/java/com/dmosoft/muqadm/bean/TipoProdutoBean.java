@@ -39,7 +39,7 @@ public class TipoProdutoBean implements Serializable {
     public String copiarProdutos(TipoProduto tp) {
         tipoProduto = new TipoProduto();
         tipoProduto = tipoProdutoDAO.copiarItem(tp);
-        return "/telas/telaDeProdutos";
+        return "/telas/telaTipoDeProduto";
     }
 
     public String limpaTela() {
