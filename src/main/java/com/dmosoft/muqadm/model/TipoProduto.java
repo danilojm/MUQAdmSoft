@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,10 +18,8 @@ public class TipoProduto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @OneToOne(mappedBy = "codProduto")
-    private Produto codProduto;
-
+    @Column(unique = true)
+    private Integer codTipoProduto;
     private String nomeProduto;
     private String tipoDeProduto;
     private String cor;
@@ -45,14 +42,13 @@ public class TipoProduto implements Serializable {
         this.nomeProduto = nomeProduto;
     }
 
-    public Produto getCodProduto() {
-        return codProduto;
+    public Integer getCodTipoProduto() {
+        return codTipoProduto;
     }
 
-    public void setCodProduto(Produto codProduto) {
-        this.codProduto = codProduto;
+    public void setCodTipoProduto(Integer codTipoProduto) {
+        this.codTipoProduto = codTipoProduto;
     }
-    
 
     public String getTipoDeProduto() {
         return tipoDeProduto;

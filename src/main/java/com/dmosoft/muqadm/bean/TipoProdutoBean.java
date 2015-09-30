@@ -1,7 +1,6 @@
 package com.dmosoft.muqadm.bean;
 
 import com.dmosoft.muqadm.dao.TipoProdutoDAO;
-import com.dmosoft.muqadm.model.Produto;
 import com.dmosoft.muqadm.model.TipoProduto;
 import java.io.Serializable;
 import java.util.List;

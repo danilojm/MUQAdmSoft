@@ -20,12 +20,14 @@ import org.joda.time.DateTime;
  */
 @Entity
 @Table(name = "vendaProduto")
-public class VendasProduto implements Serializable{
+public class VendasProduto implements Serializable {
+
+    private static final long serialVersionUID = -3698138031275752515L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     private Integer codProduto;
     private Integer qtdProduto;
     private DateTime dataVenda;
@@ -92,9 +94,5 @@ public class VendasProduto implements Serializable{
         }
         return true;
     }
-    
-    
-    
-    
-    
+
 }

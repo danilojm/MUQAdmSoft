@@ -21,17 +21,27 @@
                         <h4>Cadastro de Produtos</h4> 
                         <h:panelGrid columns="2">
 
+
+                            <h:outputLabel value="Codito Tipo Produto" for="codTipoProduto" />
+                            <p:autoComplete id="codTipoProduto" minQueryLength="3" value="#{produtoBean.produto.codTipoProduto}" completeMethod="#{produtoBean.completeText}" effect="fade">
+                                <p:ajax update="produto"/>
+                                <p:ajax update="tipoProduto"/>
+                                <p:ajax update="tamanhoProduto"/>
+                                <p:ajax update="corProduto"/>
+                            </p:autoComplete>
+
+
                             <p:outputLabel for="produto" value="Produto: " />
-                            <p:selectOneMenu id="produto" value="#{produtoBean.produto.produto}" style="width:200px">
+                            <p:selectOneMenu id="produto" value="#{produtoBean.tipoProduto.nomeProduto}" style="width:200px">
                                 <p:ajax listener="#{produtoBean.aoMudarProduto()}" update="tipoProduto"/>
                                 <p:ajax listener="#{produtoBean.aoMudarProduto()}" update="tamanhoProduto"/>
                                 <p:ajax listener="#{produtoBean.aoMudarProduto()}" update="corProduto"/>
                                 <f:selectItem itemLabel="Produto" itemValue="" noSelectionOption="true" />
                                 <f:selectItems value="#{produtoBean.listaProdutos}" />
                             </p:selectOneMenu>
-                            
+
                             <p:outputLabel for="tipoProduto" value="Tipo Produto: " />
-                            <p:selectOneMenu id="tipoProduto" value="#{produtoBean.produto.tipoProduto}" style="width:200px">
+                            <p:selectOneMenu id="tipoProduto" value="#{produtoBean.tipoProduto.tipoDeProduto}" style="width:200px">
                                 <p:ajax listener="#{produtoBean.aoMudarTipoProduto()}" update="tamanhoProduto"/>
                                 <p:ajax listener="#{produtoBean.aoMudarTipoProduto()}" update="corProduto"/>
                                 <f:selectItem itemLabel="Tipo de Produto" itemValue="" noSelectionOption="true" />
@@ -39,7 +49,7 @@
                             </p:selectOneMenu>
 
                             <p:outputLabel for="tamanhoProduto" value="Tamanho do Produto: " />
-                            <p:selectOneMenu id="tamanhoProduto" value="#{produtoBean.produto.tamanhoProduto}" style="width:200px">
+                            <p:selectOneMenu id="tamanhoProduto" value="#{produtoBean.tipoProduto.tamanho}" style="width:200px">
                                 <p:ajax listener="#{produtoBean.aoMudarTamanhoProduto()}" update="corProduto" />
                                 <f:selectItem itemLabel="Tamanho do Produto" itemValue="" noSelectionOption="true" />
                                 <f:selectItems value="#{produtoBean.listaTamanhoProdutos}" />
@@ -47,7 +57,8 @@
 
 
                             <p:outputLabel for="corProduto" value="Cor Produto: " />
-                            <p:selectOneMenu id="corProduto" value="#{produtoBean.produto.corProduto}" style="width:200px">
+                            <p:selectOneMenu id="corProduto" value="#{produtoBean.tipoProduto.cor}" style="width:200px">
+                                <p:ajax listener="#{produtoBean.aoMudarCorProduto()}" update="codTipoProduto"/>
                                 <f:selectItem itemLabel="Cor Produto" itemValue="" noSelectionOption="true" />
                                 <f:selectItems value="#{produtoBean.listaCorProdutos}" />
                             </p:selectOneMenu>
@@ -63,34 +74,35 @@
                     </p:layoutUnit>
 
                     <p:layoutUnit position="center" style="min-height:55%;">
-                        <h4>Tela Listagem</h4> 
-                        <p:dataTable value="#{produtoBean.listarProdutos()}" style="font-size: 60%; text-align: center" var="lista" styleClass="lista_cliente">
+                        <h4>Tela Listagem</h4>
+                        <p:dataTable value="#{produtoBean.listarProdutos()}"  style="font-size: 60%; text-align: center" var="lista" styleClass="lista_cliente">
+
                             <p:column style="text-align: center">
                                 <f:facet name="header">
                                     Nome
                                 </f:facet>
-                                <p:outputLabel value="#{lista.produto}"/>
+                                <p:outputLabel value="#{lista.nomeProduto}"/>
                             </p:column>
 
                             <p:column style="text-align: center">
                                 <f:facet name="header">
                                     Tipo
                                 </f:facet>
-                                <p:outputLabel value="#{lista.tipoProduto}"/>
+                                <p:outputLabel value="#{lista.tipoDeProduto}"/>
                             </p:column>
 
                             <p:column style="width: 100px; text-align: center">
                                 <f:facet name="header">
                                     Tamanho
                                 </f:facet>
-                                <p:outputLabel value="#{lista.tamanhoProduto}"/>
+                                <p:outputLabel value="#{lista.tamanho}"/>
                             </p:column>
 
                             <p:column style="width: 150px; text-align: center">
                                 <f:facet name="header">
                                     Cor
                                 </f:facet>
-                                <p:outputLabel value="#{lista.corProduto}"/>
+                                <p:outputLabel value="#{lista.cor}"/>
                             </p:column>
 
                             <p:column style="width: 60px; text-align: center">
@@ -101,7 +113,7 @@
                             </p:column>
 
 
-                            <p:column style="text-align: center">
+                            <p:column style="width: 20%; text-align: center">
                                 <f:facet name="header" rendered="center">
                                     Ações
                                 </f:facet>

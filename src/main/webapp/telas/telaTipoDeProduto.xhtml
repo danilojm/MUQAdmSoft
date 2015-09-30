@@ -20,7 +20,7 @@
                         <h:panelGrid columns="2">
                             
                             <h:outputLabel value="Código Produto" for="codProduto" />
-                            <h:inputText id="codProduto" value="#{tipoProdutoBean.tipoProduto.descricao}"/>
+                            <h:inputText id="codProduto" value="#{tipoProdutoBean.tipoProduto.codTipoProduto}"/>
 
                             <h:outputLabel value="Produto" for="produto" />
                             <h:inputText id="produto" value="#{tipoProdutoBean.tipoProduto.nomeProduto}"/>
@@ -48,6 +48,13 @@
                         <center>
                             <p:dataTable value="#{tipoProdutoBean.listarTipoProdutos()}" style="font-size: 70%; text-align: center" var="lista" styleClass="lista_cliente">
 
+                                <p:column style="alignment-adjust: central">
+                                    <f:facet name="header">
+                                        Cod. Produto
+                                    </f:facet>
+                                    <p:outputLabel value="#{lista.codTipoProduto}"/>
+                                </p:column>
+                                
                                 <p:column style="alignment-adjust: central">
                                     <f:facet name="header">
                                         Produto

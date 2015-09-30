@@ -43,7 +43,7 @@ public class ProdutoDAO implements Serializable {
                     new HibernateUpdateClause(session, qProduto)
                             .where(qProduto.id.eq(produto.getId()))
                             .set(qProduto.quantidade, produto.getQuantidade())
-                            .set(qProduto.codProduto, produto.getCodProduto())
+                            .set(qProduto.codTipoProduto, produto.getCodTipoProduto())
                             .execute();
                     transaction.commit();
                     new Mensagem().addMessageInfo("Atualizado com Sucesso!");
@@ -117,8 +117,8 @@ public class ProdutoDAO implements Serializable {
 
     public Produto copiarItem(Produto p) {
         Produto prod = new Produto();
-        if (p.getCodProduto() != null) {
-            prod.setCodProduto(p.getCodProduto());
+        if (p.getCodTipoProduto()!= null) {
+            prod.setCodTipoProduto(p.getCodTipoProduto());
         }
 
         if (p.getQuantidade() != null) {

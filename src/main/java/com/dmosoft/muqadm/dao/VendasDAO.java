@@ -13,7 +13,6 @@ import com.dmosoft.muqadm.model.QVendasProduto;
 import com.dmosoft.muqadm.util.HibernateUtil;
 import com.mysema.query.jpa.JPQLQuery;
 import com.mysema.query.jpa.hibernate.HibernateQuery;
-import com.mysema.query.jpa.hibernate.HibernateUpdateClause;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -25,7 +24,7 @@ import org.hibernate.Transaction;
  *
  * @author fernando
  */
-public class VendasDAO implements Serializable{
+public class VendasDAO implements Serializable {
 
     private Session session;
     private Transaction transaction;
@@ -41,33 +40,32 @@ public class VendasDAO implements Serializable{
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }
-    
-//    public VendaProduto findProduto(Produto p)
 
+//    public VendaProduto findProduto(Produto p)
     public void vendaProduto(Produto p) {
 
         QVendasProduto qVendasProduto = QVendasProduto.vendasProduto;
-        
+
         try {
 //            new HibernateUpdateClause(session, qVendasProduto)
 //                    .where(qVendasProduto.id.eq(p.getId()))
 //                    .set(null, null)
         } catch (Exception e) {
         }
-        
+
     }
-    
+
     public Produto listarProdutos(Produto p) {
-        
+
         Produto produto = null;
-        
+
         try {
 
             criarSessao();
 
             QProduto qProduto = QProduto.produto;
             JPQLQuery query = new HibernateQuery(session);
-            produto = query.from(qProduto).where(qProduto.codProduto.eq(p.getCodProduto())).uniqueResult(qProduto);
+            produto = query.from(qProduto).where(qProduto.codTipoProduto.eq(p.getCodTipoProduto())).uniqueResult(qProduto);
 
         } catch (HibernateException he) {
             new Mensagem().addMessageError("Erro ao tentar listar!");

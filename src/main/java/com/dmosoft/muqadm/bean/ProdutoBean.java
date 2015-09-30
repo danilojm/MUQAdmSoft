@@ -2,6 +2,7 @@ package com.dmosoft.muqadm.bean;
 
 import com.dmosoft.muqadm.dao.ProdutoDAO;
 import com.dmosoft.muqadm.dao.TipoProdutoDAO;
+import com.dmosoft.muqadm.model.ListaTipoProduto;
 import com.dmosoft.muqadm.model.Produto;
 import com.dmosoft.muqadm.model.TipoProduto;
 import java.io.Serializable;
@@ -52,17 +53,18 @@ public class ProdutoBean implements Serializable {
     }
 
     public String carregarProdutos(Produto p) {
-        produto = new Produto();        
+        produto = new Produto();
         produto = p;
         aoMudarProduto();
         aoMudarTipoProduto();
         aoMudarTamanhoProduto();
         return "/telas/telaDeProdutos";
     }
-    
-    public String copiarProdutos(Produto p) {
+
+    public String copiarProdutos(ListaTipoProduto p) {
         produto = new Produto();
-        produto = pdao.copiarItem(p);
+        produto = pdao.copiarItem((Produto) p);
+        tipoProduto = tipoProdutoDAO.findTipoProdutoPorCodProduto(produto.getCodTipoProduto());
         aoMudarProduto();
         aoMudarTipoProduto();
         aoMudarTamanhoProduto();
@@ -72,18 +74,40 @@ public class ProdutoBean implements Serializable {
 
     public String limpaTela() {
         produto = new Produto();
+        tipoProduto = new TipoProduto();
         return "/telas/telaDeProdutos";
     }
 
     public List listarProdutos() {
         produtos = pdao.listarProdutos();
-        LOG.info("Lista de produtos...");
-        return produtos;
+        List lista = listaTudo();
+        return lista;
+    }
+
+    public List listaTudo() {
+        List lista = new ArrayList();
+        for (Produto prod : produtos) {
+            for (TipoProduto tProd : tipoProdutos) {
+                if (prod.getCodTipoProduto().equals(tProd.getCodTipoProduto())) {
+                    ListaTipoProduto ltp = new ListaTipoProduto();
+                    ltp.setCodTipoProduto(prod.getCodTipoProduto());
+                    ltp.setNomeProduto(tProd.getNomeProduto());
+                    ltp.setTipoDeProduto(tProd.getTipoDeProduto());
+                    ltp.setTamanho(tProd.getTamanho());
+                    ltp.setCor(tProd.getCor());
+                    ltp.setQuantidade(prod.getQuantidade());
+                    ltp.setDescricao(tProd.getDescricao());
+                    lista.add(ltp);
+                }
+            }
+        }
+        return lista;
     }
 
     public List listarTipoProdutos() {
         tipoProdutos = tipoProdutoDAO.listarTipoProdutos();
-        return tipoProdutos;
+        List lista = listaTudo();
+        return lista;
     }
 
     public void montaListaProdutos() {
@@ -99,68 +123,72 @@ public class ProdutoBean implements Serializable {
         }
     }
 
-    public List<String> completeText(String query) {
-
-        List<String> results = new ArrayList<String>();
-        
-        for (String prod : listaProdutos) {
-            if(prod.contains(query)){
-                results.add(prod);
-            }
-        }
-                
-
-        return results;
+    public void completeText(String codProduto) {
+        tipoProduto = tipoProdutoDAO.findTipoProdutoPorCodProduto(Integer.parseInt(codProduto));
+        aoMudarProduto();
+        aoMudarTipoProduto();
+        aoMudarTamanhoProduto();
+        aoMudarCorProduto();
     }
 
     public void aoMudarProduto() {
-//        if (produto.getNomeProduto() != null && !produto.getNomeProduto().equals("")) {
-//            String tipoProd = produto.getNomeProduto();
-//
-//            listaTipoProdutos = new ArrayList<>();
-//            listaCorProdutos = new ArrayList<>();
-//            listaTamanhoProdutos = new ArrayList<>();
-//
-//            for (TipoProduto prod : tipoProdutos) {
-//                if (prod.getNomeProduto().equals(tipoProd)) {
-//                    if (!listaTipoProdutos.contains(prod.getTipoDeProduto())) {
-//                        listaTipoProdutos.add(prod.getTipoDeProduto());
-//                    }
-//                }
-//            }
-//        }
+        if (tipoProduto.getNomeProduto() != null && !tipoProduto.getNomeProduto().equals("")) {
+            String tipoProd = tipoProduto.getNomeProduto();
+
+            listaTipoProdutos = new ArrayList<>();
+            listaCorProdutos = new ArrayList<>();
+            listaTamanhoProdutos = new ArrayList<>();
+
+            for (TipoProduto prod : tipoProdutos) {
+                if (prod.getNomeProduto().equals(tipoProd)) {
+                    if (!listaTipoProdutos.contains(prod.getTipoDeProduto())) {
+                        listaTipoProdutos.add(prod.getTipoDeProduto());
+                    }
+                }
+            }
+        }
     }
 
     public void aoMudarTipoProduto() {
-//        if (produto.getTipoProduto() != null && !produto.getTipoProduto().equals("")) {
-//            
-//            listaTamanhoProdutos = new ArrayList<>();
-//            for (TipoProduto lista : tipoProdutos) {
-//                if (lista.getNomeProduto().equals(produto.getNomeProduto())
-//                        && lista.getTipoDeProduto().equals(produto.getTipoProduto())) {
-//                    if (!listaTamanhoProdutos.contains(lista.getTamanho())) {
-//                        listaTamanhoProdutos.add(lista.getTamanho());
-//                    }
-//                }
-//            }
-//        }
+        if (tipoProduto.getTipoDeProduto() != null && !tipoProduto.getTipoDeProduto().equals("")) {
+            listaTamanhoProdutos = new ArrayList<>();
+            for (TipoProduto lista : tipoProdutos) {
+                if (lista.getNomeProduto().equals(tipoProduto.getNomeProduto())
+                        && lista.getTipoDeProduto().equals(tipoProduto.getTipoDeProduto())) {
+                    if (!listaTamanhoProdutos.contains(lista.getTamanho())) {
+                        listaTamanhoProdutos.add(lista.getTamanho());
+                    }
+                }
+            }
+        }
     }
 
     public void aoMudarTamanhoProduto() {
-//        if (produto.getTamanhoProduto() != null && !produto.getTamanhoProduto().equals("")) {
-//
-//            listaCorProdutos = new ArrayList<>();
-//
-//            for (TipoProduto lista : tipoProdutos) {
-//                if (lista.getProduto().equals(produto.getProduto())
-//                        && lista.getTipoDeProduto().equals(produto.getTipoProduto())
-//                        && lista.getTamanho().equals(produto.getTamanhoProduto())) {
-//                    if (!listaCorProdutos.contains(lista.getCor())) {
-//                        listaCorProdutos.add(lista.getCor());
-//                    }
-//                }
-//            }
-//        }
+        if (tipoProduto.getTamanho() != null && !tipoProduto.getTamanho().equals("")) {
+
+            listaCorProdutos = new ArrayList<>();
+
+            for (TipoProduto lista : tipoProdutos) {
+                if (lista.getNomeProduto().equals(tipoProduto.getNomeProduto())
+                        && lista.getTipoDeProduto().equals(tipoProduto.getTipoDeProduto())
+                        && lista.getTamanho().equals(tipoProduto.getTamanho())) {
+                    if (!listaCorProdutos.contains(lista.getCor())) {
+                        listaCorProdutos.add(lista.getCor());
+                    }
+                }
+            }
+        }
+    }
+
+    public void aoMudarCorProduto() {
+        TipoProduto tp = new TipoProduto();
+        tp.setNomeProduto(tipoProduto.getNomeProduto());
+        tp.setTipoDeProduto(tipoProduto.getTipoDeProduto());
+        tp.setTamanho(tipoProduto.getTamanho());
+        tp.setCor(tipoProduto.getCor());
+
+        TipoProduto retTP = tipoProdutoDAO.findTipoProduto(tp);
+        produto.setCodTipoProduto(retTP.getCodTipoProduto());
     }
 
     public List<String> getListaProdutos() {

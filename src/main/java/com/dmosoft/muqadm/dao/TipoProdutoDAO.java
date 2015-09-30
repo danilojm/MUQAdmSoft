@@ -5,9 +5,12 @@
  */
 package com.dmosoft.muqadm.dao;
 
+import static com.dmosoft.muqadm.dao.UsuarioDAO.logger;
 import com.dmosoft.muqadm.mensagem.Mensagem;
 import com.dmosoft.muqadm.model.QTipoProduto;
+import com.dmosoft.muqadm.model.QUsuario;
 import com.dmosoft.muqadm.model.TipoProduto;
+import com.dmosoft.muqadm.model.Usuario;
 import com.dmosoft.muqadm.util.HibernateUtil;
 import com.mysema.query.jpa.JPQLQuery;
 import com.mysema.query.jpa.hibernate.HibernateDeleteClause;
@@ -54,6 +57,7 @@ public class TipoProdutoDAO implements Serializable {
                     logger.info("Classe TipoProdutoDAO, atualizando tipo produto...");
                     new HibernateUpdateClause(session, qtp)
                             .where(qtp.id.eq(tProduto.getId()))
+                            .set(qtp.codTipoProduto, tProduto.getCodTipoProduto())
                             .set(qtp.nomeProduto, tProduto.getNomeProduto())
                             .set(qtp.tipoDeProduto, tProduto.getTipoDeProduto())
                             .set(qtp.tamanho, tProduto.getTamanho())
@@ -157,7 +161,7 @@ public class TipoProdutoDAO implements Serializable {
 
     public TipoProduto copiarItem(TipoProduto tp) {
         TipoProduto tipoProduto = new TipoProduto();
-        if (tp.getNomeProduto()!= null) {
+        if (tp.getNomeProduto() != null) {
             tipoProduto.setNomeProduto(tp.getNomeProduto());
         }
         if (tp.getTipoDeProduto() != null) {
@@ -178,4 +182,54 @@ public class TipoProdutoDAO implements Serializable {
         return tipoProduto;
     }
 
+    public TipoProduto findTipoProduto(TipoProduto tp) {
+        criarSessao();
+        TipoProduto produto = null;
+        try {
+            if (tp != null) {
+                logger.info("Classe UsuarioDAO, findUsuario...");
+                QTipoProduto qTipoProduto = QTipoProduto.tipoProduto;
+                JPQLQuery query = new HibernateQuery(session);
+                produto = query.from(qTipoProduto)
+                        .where(qTipoProduto.nomeProduto.eq(tp.getNomeProduto()),
+                                qTipoProduto.tipoDeProduto.eq(tp.getTipoDeProduto()),
+                                qTipoProduto.tamanho.eq(tp.getTamanho()),
+                                qTipoProduto.cor.eq(tp.getCor()))
+                        .uniqueResult(qTipoProduto);
+
+            }
+        } catch (HibernateException e) {
+            logger.error("Classe UsuarioDAO, Erro ao tentar encontrar Usuario...");
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return produto;
+    }
+
+    public TipoProduto findTipoProdutoPorCodProduto(Integer codProduto) {
+        criarSessao();
+        TipoProduto produto = null;
+        try {
+            if (codProduto != null) {
+                logger.info("Classe UsuarioDAO, findUsuario...");
+
+                QTipoProduto qTipoProduto = QTipoProduto.tipoProduto;
+                JPQLQuery query = new HibernateQuery(session);
+
+                produto = query.from(qTipoProduto)
+                        .where(qTipoProduto.codTipoProduto.eq(codProduto))
+                        .singleResult(qTipoProduto);
+
+            }
+        } catch (HibernateException e) {
+            logger.error("Classe UsuarioDAO, Erro ao tentar encontrar Usuario...");
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return produto;
+    }
 }
