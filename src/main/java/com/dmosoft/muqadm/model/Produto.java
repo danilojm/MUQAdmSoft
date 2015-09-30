@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -32,9 +33,8 @@ public class Produto implements Serializable {
     private Integer id;
     private Integer quantidade;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "codProduto")
-    private Integer codProduto;
+    @OneToOne
+    private TipoProduto codProduto;
 
     public Integer getId() {
         return id;
@@ -52,11 +52,11 @@ public class Produto implements Serializable {
         this.quantidade = quantidade;
     }
 
-    public Integer getCodProduto() {
+    public TipoProduto getCodProduto() {
         return codProduto;
     }
 
-    public void setCodProduto(Integer codProduto) {
+    public void setCodProduto(TipoProduto codProduto) {
         this.codProduto = codProduto;
     }
 

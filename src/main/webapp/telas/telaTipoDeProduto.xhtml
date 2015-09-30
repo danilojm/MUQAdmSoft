@@ -18,9 +18,12 @@
 
                         <h4>Cadastro Tipos de Produtos</h4> 
                         <h:panelGrid columns="2">
+                            
+                            <h:outputLabel value="Código Produto" for="codProduto" />
+                            <h:inputText id="codProduto" value="#{tipoProdutoBean.tipoProduto.descricao}"/>
 
                             <h:outputLabel value="Produto" for="produto" />
-                            <h:inputText id="produto" value="#{tipoProdutoBean.tipoProduto.produto}"/>
+                            <h:inputText id="produto" value="#{tipoProdutoBean.tipoProduto.nomeProduto}"/>
 
                             <h:outputLabel value="Tipo de Produto" for="tipoProduto" />
                             <h:inputText id="tipoProduto" value="#{tipoProdutoBean.tipoProduto.tipoDeProduto}"/>                          
@@ -34,7 +37,7 @@
                             <h:outputLabel value="Decrição do Produto" for="descricaoProduto" />
                             <h:inputText id="descricaoProduto" value="#{tipoProdutoBean.tipoProduto.descricao}"/>                            
 
-                            <h:inputHidden />
+                                                        <h:inputHidden />
                             <h:commandButton value="Salvar" action="#{tipoProdutoBean.saveTipoProdutos()}"/>
 
                         </h:panelGrid>
@@ -49,7 +52,7 @@
                                     <f:facet name="header">
                                         Produto
                                     </f:facet>
-                                    <p:outputLabel value="#{lista.produto}"/>
+                                    <p:outputLabel value="#{lista.nomeProduto}"/>
                                 </p:column>
 
                                 <p:column style="alignment-adjust: central">

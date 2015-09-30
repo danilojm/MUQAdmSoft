@@ -15,6 +15,7 @@
         <mapping class="com.dmosoft.muqadm.model.Cliente"/>
         <mapping class="com.dmosoft.muqadm.model.Produto"/>
         <mapping class="com.dmosoft.muqadm.model.TipoProduto"/>
+        <mapping class="com.dmosoft.muqadm.model.VendasProduto"/>
     </session-factory>
 </hibernate-configuration>
 

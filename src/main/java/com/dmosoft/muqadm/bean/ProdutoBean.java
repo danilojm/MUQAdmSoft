@@ -93,8 +93,8 @@ public class ProdutoBean implements Serializable {
         listaProdutos = new ArrayList<>();
 
         for (TipoProduto prod : tipoProdutos) {
-            if (!listaProdutos.contains(prod.getProduto())) {
-                listaProdutos.add(prod.getProduto());
+            if (!listaProdutos.contains(prod.getNomeProduto())) {
+                listaProdutos.add(prod.getNomeProduto());
             }
         }
     }
@@ -114,53 +114,53 @@ public class ProdutoBean implements Serializable {
     }
 
     public void aoMudarProduto() {
-        if (produto.getProduto() != null && !produto.getProduto().equals("")) {
-            String tipoProd = produto.getProduto();
-
-            listaTipoProdutos = new ArrayList<>();
-            listaCorProdutos = new ArrayList<>();
-            listaTamanhoProdutos = new ArrayList<>();
-
-            for (TipoProduto prod : tipoProdutos) {
-                if (prod.getProduto().equals(tipoProd)) {
-                    if (!listaTipoProdutos.contains(prod.getTipoDeProduto())) {
-                        listaTipoProdutos.add(prod.getTipoDeProduto());
-                    }
-                }
-            }
-        }
+//        if (produto.getNomeProduto() != null && !produto.getNomeProduto().equals("")) {
+//            String tipoProd = produto.getNomeProduto();
+//
+//            listaTipoProdutos = new ArrayList<>();
+//            listaCorProdutos = new ArrayList<>();
+//            listaTamanhoProdutos = new ArrayList<>();
+//
+//            for (TipoProduto prod : tipoProdutos) {
+//                if (prod.getNomeProduto().equals(tipoProd)) {
+//                    if (!listaTipoProdutos.contains(prod.getTipoDeProduto())) {
+//                        listaTipoProdutos.add(prod.getTipoDeProduto());
+//                    }
+//                }
+//            }
+//        }
     }
 
     public void aoMudarTipoProduto() {
-        if (produto.getTipoProduto() != null && !produto.getTipoProduto().equals("")) {
-            
-            listaTamanhoProdutos = new ArrayList<>();
-            for (TipoProduto lista : tipoProdutos) {
-                if (lista.getProduto().equals(produto.getProduto())
-                        && lista.getTipoDeProduto().equals(produto.getTipoProduto())) {
-                    if (!listaTamanhoProdutos.contains(lista.getTamanho())) {
-                        listaTamanhoProdutos.add(lista.getTamanho());
-                    }
-                }
-            }
-        }
+//        if (produto.getTipoProduto() != null && !produto.getTipoProduto().equals("")) {
+//            
+//            listaTamanhoProdutos = new ArrayList<>();
+//            for (TipoProduto lista : tipoProdutos) {
+//                if (lista.getNomeProduto().equals(produto.getNomeProduto())
+//                        && lista.getTipoDeProduto().equals(produto.getTipoProduto())) {
+//                    if (!listaTamanhoProdutos.contains(lista.getTamanho())) {
+//                        listaTamanhoProdutos.add(lista.getTamanho());
+//                    }
+//                }
+//            }
+//        }
     }
 
     public void aoMudarTamanhoProduto() {
-        if (produto.getTamanhoProduto() != null && !produto.getTamanhoProduto().equals("")) {
-
-            listaCorProdutos = new ArrayList<>();
-
-            for (TipoProduto lista : tipoProdutos) {
-                if (lista.getProduto().equals(produto.getProduto())
-                        && lista.getTipoDeProduto().equals(produto.getTipoProduto())
-                        && lista.getTamanho().equals(produto.getTamanhoProduto())) {
-                    if (!listaCorProdutos.contains(lista.getCor())) {
-                        listaCorProdutos.add(lista.getCor());
-                    }
-                }
-            }
-        }
+//        if (produto.getTamanhoProduto() != null && !produto.getTamanhoProduto().equals("")) {
+//
+//            listaCorProdutos = new ArrayList<>();
+//
+//            for (TipoProduto lista : tipoProdutos) {
+//                if (lista.getProduto().equals(produto.getProduto())
+//                        && lista.getTipoDeProduto().equals(produto.getTipoProduto())
+//                        && lista.getTamanho().equals(produto.getTamanhoProduto())) {
+//                    if (!listaCorProdutos.contains(lista.getCor())) {
+//                        listaCorProdutos.add(lista.getCor());
+//                    }
+//                }
+//            }
+//        }
     }
 
     public List<String> getListaProdutos() {

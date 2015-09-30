@@ -36,17 +36,14 @@ public class ProdutoDAO implements Serializable {
 
             criarSessao();
 
-            QProduto qProduto = QProduto.produto1;
+            QProduto qProduto = QProduto.produto;
 
             if (produto.getId() != null && produto.getId() != 0) {
                 try {
                     new HibernateUpdateClause(session, qProduto)
                             .where(qProduto.id.eq(produto.getId()))
                             .set(qProduto.quantidade, produto.getQuantidade())
-                            .set(qProduto.produto, produto.getProduto())
-                            .set(qProduto.corProduto, produto.getCorProduto())
-                            .set(qProduto.tipoProduto, produto.getTipoProduto())
-                            .set(qProduto.tamanhoProduto, produto.getTamanhoProduto())
+                            .set(qProduto.codProduto, produto.getCodProduto())
                             .execute();
                     transaction.commit();
                     new Mensagem().addMessageInfo("Atualizado com Sucesso!");
@@ -77,7 +74,7 @@ public class ProdutoDAO implements Serializable {
 
             criarSessao();
 
-            QProduto qProduto = QProduto.produto1;
+            QProduto qProduto = QProduto.produto;
             new HibernateDeleteClause(session, qProduto).where(qProduto.id.eq(produto.getId())).execute();
             transaction.commit();
             new Mensagem().addMessageInfo("Deletado com Sucesso!");
@@ -94,9 +91,9 @@ public class ProdutoDAO implements Serializable {
 
             criarSessao();
 
-            QProduto qProduto = QProduto.produto1;
+            QProduto qProduto = QProduto.produto;
             JPQLQuery query = new HibernateQuery(session);
-            result = query.from(qProduto).orderBy(qProduto.produto.asc()).list(new QProduto(qProduto));
+            result = query.from(qProduto).list(new QProduto(qProduto));
 
         } catch (HibernateException he) {
             new Mensagem().addMessageError("Erro ao tentar listar!");
@@ -120,24 +117,12 @@ public class ProdutoDAO implements Serializable {
 
     public Produto copiarItem(Produto p) {
         Produto prod = new Produto();
-        if (p.getProduto() != null) {
-            prod.setProduto(p.getProduto());
-        }
-
-        if (p.getTipoProduto() != null) {
-            prod.setTipoProduto(p.getTipoProduto());
-        }
-
-        if (p.getTamanhoProduto() != null) {
-            prod.setTamanhoProduto(p.getTamanhoProduto());
+        if (p.getCodProduto() != null) {
+            prod.setCodProduto(p.getCodProduto());
         }
 
         if (p.getQuantidade() != null) {
             prod.setQuantidade(p.getQuantidade());
-        }
-
-        if (p.getCorProduto() != null) {
-            prod.setCorProduto(p.getCorProduto());
         }
         return prod;
     }

@@ -54,7 +54,7 @@ public class TipoProdutoDAO implements Serializable {
                     logger.info("Classe TipoProdutoDAO, atualizando tipo produto...");
                     new HibernateUpdateClause(session, qtp)
                             .where(qtp.id.eq(tProduto.getId()))
-                            .set(qtp.produto, tProduto.getProduto())
+                            .set(qtp.nomeProduto, tProduto.getNomeProduto())
                             .set(qtp.tipoDeProduto, tProduto.getTipoDeProduto())
                             .set(qtp.tamanho, tProduto.getTamanho())
                             .set(qtp.cor, tProduto.getCor())
@@ -121,7 +121,7 @@ public class TipoProdutoDAO implements Serializable {
 
             prod = new HashMap<>();
 
-            result = query.from(qtp).orderBy(qtp.produto.asc()).list(new QTipoProduto(qtp));
+            result = query.from(qtp).orderBy(qtp.nomeProduto.asc()).list(new QTipoProduto(qtp));
 
             for (TipoProduto next : result) {
                 produtoList.add(next);
@@ -157,8 +157,8 @@ public class TipoProdutoDAO implements Serializable {
 
     public TipoProduto copiarItem(TipoProduto tp) {
         TipoProduto tipoProduto = new TipoProduto();
-        if (tp.getProduto() != null) {
-            tipoProduto.setProduto(tp.getProduto());
+        if (tp.getNomeProduto()!= null) {
+            tipoProduto.setNomeProduto(tp.getNomeProduto());
         }
         if (tp.getTipoDeProduto() != null) {
             tipoProduto.setTipoDeProduto(tp.getTipoDeProduto());

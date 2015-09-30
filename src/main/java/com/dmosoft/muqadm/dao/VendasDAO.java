@@ -49,25 +49,25 @@ public class VendasDAO implements Serializable{
         QVendasProduto qVendasProduto = QVendasProduto.vendasProduto;
         
         try {
-            new HibernateUpdateClause(session, qVendasProduto)
-                    .where(qVendasProduto.id.eq(p.getId()))
-                    .set(null, null)
+//            new HibernateUpdateClause(session, qVendasProduto)
+//                    .where(qVendasProduto.id.eq(p.getId()))
+//                    .set(null, null)
         } catch (Exception e) {
         }
         
     }
     
-    public Produto listarProdutos() {
+    public Produto listarProdutos(Produto p) {
         
-        Produto produto;
+        Produto produto = null;
         
         try {
 
             criarSessao();
 
-            QProduto qProduto = QProduto.produto1;
+            QProduto qProduto = QProduto.produto;
             JPQLQuery query = new HibernateQuery(session);
-            produto = query.from(qProduto).where(qProduto.co).uniqueResult(qProduto);
+            produto = query.from(qProduto).where(qProduto.codProduto.eq(p.getCodProduto())).uniqueResult(qProduto);
 
         } catch (HibernateException he) {
             new Mensagem().addMessageError("Erro ao tentar listar!");
@@ -77,6 +77,6 @@ public class VendasDAO implements Serializable{
             }
         }
 
-        return result;
+        return produto;
     }
 }

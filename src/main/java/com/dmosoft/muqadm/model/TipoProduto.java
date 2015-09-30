@@ -2,14 +2,12 @@ package com.dmosoft.muqadm.model;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,9 +20,8 @@ public class TipoProduto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique = true)
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    private Integer codProduto;
+    @OneToOne(mappedBy = "codProduto")
+    private Produto codProduto;
 
     private String nomeProduto;
     private String tipoDeProduto;
@@ -40,14 +37,6 @@ public class TipoProduto implements Serializable {
         this.id = id;
     }
 
-    public Integer getCodProduto() {
-        return codProduto;
-    }
-
-    public void setCodProduto(Integer codProduto) {
-        this.codProduto = codProduto;
-    }
-
     public String getNomeProduto() {
         return nomeProduto;
     }
@@ -55,6 +44,15 @@ public class TipoProduto implements Serializable {
     public void setNomeProduto(String nomeProduto) {
         this.nomeProduto = nomeProduto;
     }
+
+    public Produto getCodProduto() {
+        return codProduto;
+    }
+
+    public void setCodProduto(Produto codProduto) {
+        this.codProduto = codProduto;
+    }
+    
 
     public String getTipoDeProduto() {
         return tipoDeProduto;
