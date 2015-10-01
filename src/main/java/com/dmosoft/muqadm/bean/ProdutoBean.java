@@ -38,7 +38,7 @@ public class ProdutoBean implements Serializable {
         montaListaProdutos();
     }
 
-    public String saveProdutos() {
+    public String saveProdutos() {        
         pdao.saveProduto(produto);
         produto = new Produto();
         return "/telas/telaDeProdutos";
@@ -55,6 +55,7 @@ public class ProdutoBean implements Serializable {
     public String carregarProdutos(Produto p) {
         produto = new Produto();
         produto = p;
+        tipoProduto = tipoProdutoDAO.findTipoProdutoPorCodProduto(produto.getCodTipoProduto());
         aoMudarProduto();
         aoMudarTipoProduto();
         aoMudarTamanhoProduto();
@@ -90,6 +91,7 @@ public class ProdutoBean implements Serializable {
             for (TipoProduto tProd : tipoProdutos) {
                 if (prod.getCodTipoProduto().equals(tProd.getCodTipoProduto())) {
                     ListaTipoProduto ltp = new ListaTipoProduto();
+                    ltp.setId(prod.getId());
                     ltp.setCodTipoProduto(prod.getCodTipoProduto());
                     ltp.setNomeProduto(tProd.getNomeProduto());
                     ltp.setTipoDeProduto(tProd.getTipoDeProduto());
@@ -106,7 +108,7 @@ public class ProdutoBean implements Serializable {
 
     public List listarTipoProdutos() {
         tipoProdutos = tipoProdutoDAO.listarTipoProdutos();
-        List lista = listaTudo();
+        List lista = listarProdutos();
         return lista;
     }
 

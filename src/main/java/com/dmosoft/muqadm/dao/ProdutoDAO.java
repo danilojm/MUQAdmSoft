@@ -16,6 +16,7 @@ import com.mysema.query.jpa.hibernate.HibernateUpdateClause;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -27,6 +28,7 @@ import org.hibernate.Transaction;
 public class ProdutoDAO implements Serializable {
 
     private static final long serialVersionUID = -6823382201249032916L;
+    private static final Logger LOG = Logger.getLogger(ProdutoDAO.class.getName());
 
     private Session session;
     private Transaction transaction;
@@ -57,6 +59,7 @@ public class ProdutoDAO implements Serializable {
                     new Mensagem().addMessageInfo("Salvo com Sucesso!");
                 } catch (HibernateException ex) {
                     new Mensagem().addMessageInfo("Erro ao Salvar");
+                    LOG.info(ex.getMessage());
                 }
             }
 
@@ -117,7 +120,7 @@ public class ProdutoDAO implements Serializable {
 
     public Produto copiarItem(Produto p) {
         Produto prod = new Produto();
-        if (p.getCodTipoProduto()!= null) {
+        if (p.getCodTipoProduto() != null) {
             prod.setCodTipoProduto(p.getCodTipoProduto());
         }
 
