@@ -16,23 +16,22 @@ import javax.faces.bean.SessionScoped;
  *
  * @author fernando
  */
-
 @ManagedBean(name = "vendasProdutoBean")
 @SessionScoped
-public class VendasProdutoBean implements Serializable{
+public class VendasProdutoBean implements Serializable {
+
+    private static final long serialVersionUID = -3473392346556528619L;
 
     VendasProduto vProduto = new VendasProduto();
     VendasDAO vdao = new VendasDAO();
-    
-    
-    public void vender(Produto p){
+
+    public void vender(Produto p) {
         vdao.vendaProduto(p);
     }
-    
-    
+
     public String limpaTela() {
         vProduto = new VendasProduto();
-        return "/telas/telaDeVendasProduto";
+        return "/telas/telaDeVendaProdutos";
     }
 
 }

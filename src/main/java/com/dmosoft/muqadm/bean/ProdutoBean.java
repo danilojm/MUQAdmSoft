@@ -41,7 +41,7 @@ public class ProdutoBean implements Serializable {
     public String saveProdutos() {        
         pdao.saveProduto(produto);
         produto = new Produto();
-        return "/telas/telaDeProdutos";
+        return "/telas/telaDeCompraProdutos";
     }
 
     public String removeProduto(Produto p) {
@@ -49,7 +49,7 @@ public class ProdutoBean implements Serializable {
         produto = p;
         pdao.removeProduto(produto);
         produto = new Produto();
-        return "/telas/telaDeProdutos";
+        return "/telas/telaDeCompraProdutos";
     }
 
     public String carregarProdutos(Produto p) {
@@ -59,7 +59,7 @@ public class ProdutoBean implements Serializable {
         aoMudarProduto();
         aoMudarTipoProduto();
         aoMudarTamanhoProduto();
-        return "/telas/telaDeProdutos";
+        return "/telas/telaDeCompraProdutos";
     }
 
     public String copiarProdutos(ListaTipoProduto p) {
@@ -70,13 +70,13 @@ public class ProdutoBean implements Serializable {
         aoMudarTipoProduto();
         aoMudarTamanhoProduto();
         LOG.info("Copiar produtos...");
-        return "/telas/telaDeProdutos";
+        return "/telas/telaDeCompraProdutos";
     }
 
     public String limpaTela() {
         produto = new Produto();
         tipoProduto = new TipoProduto();
-        return "/telas/telaDeProdutos";
+        return "/telas/telaDeCompraProdutos";
     }
 
     public List listarProdutos() {
